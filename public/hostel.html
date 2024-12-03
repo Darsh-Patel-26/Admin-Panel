@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Hostel</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            background-color: #f5f5f5; /* Light theme background */
+            color: #333; /* Light theme text color */
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            transition: background-color 0.3s, color 0.3s; /* Smooth transition */
+        }
+
+        .container {
+            max-width: 800px; /* Increased width for better alignment */
+            margin: auto;
+            padding: 20px;
+            background-color: #ffffff; /* Light theme container */
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s; /* Smooth transition for container */
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        label {
+            margin-top: 10px;
+            display: block;
+        }
+
+        input[type="text"],
+        input[type="number"],
+        input[type="file"],
+        textarea,
+        input[type="date"] {
+            width: calc(100% - 22px); /* Adjusted width for padding */
+            padding: 10px;
+            margin-top: 5px;
+            border-radius: 4px;
+            border: 1px solid #ccc; /* Light theme border */
+            background-color: #f9f9f9; /* Light theme input */
+            color: #333; /* Light theme text color */
+        }
+
+        input[type="submit"] {
+            background-color: #222; /* Darker green for submit button */
+            color: white;
+            padding: 15px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 20px;
+            width: 100%;
+            transition: background-color 0.3s; /* Smooth transition */
+        }
+
+        input[type="submit"]:hover {
+            background-color: #555; /* Even darker green on hover */
+        }
+
+        .back-link {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            color: #1976d2; /* Darker blue for link */
+            text-decoration: none; /* Remove underline */
+        }
+
+        .back-link:hover {
+            text-decoration: underline; /* Underline on hover */
+        }
+
+        .theme-toggle {
+            display: flex;
+            justify-content: flex-end; /* Align toggle button to the right */
+            margin-bottom: 20px; 
+        }
+
+        .theme-toggle button {
+            background-color: #444; /* Dark button for toggle */
+            color: white; /* White text for contrast */
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .dark-theme {
+            background-color: #333; /* Dark theme background */
+            color: #ffffff; /* Dark theme text color */
+        }
+
+        .dark-theme .container {
+            background-color: #444; /* Dark theme container */
+        }
+
+        .dark-theme input[type="text"],
+        .dark-theme input[type="number"],
+        .dark-theme input[type="file"],
+        .dark-theme textarea,
+        .dark-theme input[type="date"] {
+            background-color: #555; /* Darker input fields for dark theme */
+            border-color: #666; /* Darker border for inputs in dark theme */
+            color: white; /* White text in inputs for dark theme */
+        }
+    </style>
+</head>
+<body>
+    <div class="theme-toggle">
+        <button id="toggleTheme">Switch to Dark Theme</button>
+    </div>
+
+    <div class="container">
+        <h1>Add Hostel</h1>
+        <form id="hostelForm" enctype="multipart/form-data">
+           <label for="name">Hostel Name:</label>
+           <input type="text" id="name" name="name" required>
+
+           <label for="isGovernment">Is Government Hostel?</label>
+           <input type="checkbox" id="isGovernment" name="isGovernment">
+
+           <label for="boysAddress">Boys Address:</label>
+           <input type="text" id="boysAddress" name="boysAddress">
+
+           <label for="girlsAddress">Girls Address:</label>
+           <input type="text" id="girlsAddress" name="girlsAddress">
+
+           <label for="images">Upload Images:</label>
+           <input type="file" id="images" name="images" accept="image/*" multiple required>
+
+           <label for="details">Details (comma-separated):</label>
+           <input type="text" id="details" name="details">
+
+           <label for="features">Features (comma-separated):</label>
+           <input type="text" id="features" name="features">
+
+           <label for="eligable">Eligibility Criteria (comma-separated):</label>
+           <input type="text" id="eligable" name="eligable">
+
+           <label for="admissionSteps">Admission Steps (comma-separated):</label>
+           <input type="text" id="admissionSteps" name="admissionSteps">
+
+           <label for="services">Services (comma-separated):</label>
+           <input type="text" id="services" name="services">
+
+           <input type="submit" value="Add Hostel">
+       </form>
+
+       <a href="index.html" class="back-link">Back to Admin Panel</a> <!-- Update link as needed -->
+   </div>
+
+   <script>
+       document.getElementById('toggleTheme').addEventListener('click', function() {
+           document.body.classList.toggle('dark-theme');
+           this.textContent = document.body.classList.contains('dark-theme') ? 'Switch to Light Theme' : 'Switch to Dark Theme';
+       });
+
+       document.getElementById('hostelForm').addEventListener('submit', async function(event) {
+           event.preventDefault(); // Prevent default form submission
+
+           // Collecting data manually using querySelector
+           const name = document.querySelector('#name').value.trim();
+           const isGovernment = document.querySelector('#isGovernment').checked;
+           const boysAddress = document.querySelector('#boysAddress').value.trim();
+           const girlsAddress = document.querySelector('#girlsAddress').value.trim();
+           
+           const details = document.querySelector('#details').value.split(',').map(item => item.trim());
+           const features = document.querySelector('#features').value.split(',').map(item => item.trim());
+           const eligable = document.querySelector('#eligable').value.split(',').map(item => item.trim());
+           const admissionSteps = document.querySelector('#admissionSteps').value.split(',').map(item => item.trim());
+           const services = document.querySelector('#services').value.split(',').map(item => item.trim());
+
+           // Check for missing required fields
+           if (!name) {
+               alert("Hostel Name is required.");
+               return;
+           }
+
+           // Create JSON object
+           const hostelData = {
+               name,
+               isGovernment,
+               boysAddress,
+               girlsAddress,
+               details,
+               features,
+               eligable,
+               admissionSteps,
+               services
+           };
+
+           // Handle file uploads
+           const files = document.getElementById('images').files;
+
+           // Convert images to base64 strings
+           const imagePromises = Array.from(files).map(file => {
+               return new Promise((resolve, reject) => {
+                   const reader = new FileReader();
+                   reader.onloadend = () => resolve(reader.result);
+                   reader.onerror = reject; // Handle errors
+                   reader.readAsDataURL(file);
+               });
+           });
+
+           try {
+               const imageBase64Array = await Promise.all(imagePromises);
+               hostelData.images = imageBase64Array; // Attach images to the JSON object
+
+               // Send data to server using Fetch API
+               const response = await fetch('/api/hostel', { // Replace with your API endpoint
+                   method: 'POST',
+                   headers: {
+                       'Content-Type': 'application/json' // Set content type to JSON
+                   },
+                   body: JSON.stringify(hostelData) // Send JSON data
+               });
+
+               if (response.ok) {
+                   alert('Hostel added successfully!');
+                   this.reset(); // Reset the form fields
+               } else {
+                   alert('Failed to add hostel.');
+               }
+           } catch (error) {
+               console.error('Error:', error);
+               alert('An error occurred while adding the hostel.');
+           }
+       });
+   </script>
+</body>
+</html>
